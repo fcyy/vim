@@ -36,6 +36,12 @@ function! ShowPopup()
         let s:ObsidianFound = 0
         if isdirectory(s:ObsidianICloudPath) 
            let s:ObsidianFound = 1
+        else
+           " We could be on an iPad. Try to find it.
+           let s:ObsidianICloudPath = '/private/var/mobile/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-fy'
+           if isdirectory(s:ObsidianICloudPath) 
+              let s:ObsidianFound = 1
+           endif
         endif
 
         func! MenuSelected(id, result)
