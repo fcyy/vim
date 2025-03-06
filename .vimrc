@@ -29,6 +29,14 @@ set tabstop=3
 colorscheme desert
 set guifont=Monaco:h14
 
+set conceallevel=2
+let g:markdown_conceal = 1
+let g:vim_markdown_conceal_code_blocks = 1
+let g:vim_markdown_conceal = 2
+
+let g:goyo_width = 60
+let g:goyo_height = 999
+
 " Popup menu
 function! ShowPopup()
         let s:ObsidianICloudPath = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-fy'
@@ -52,15 +60,53 @@ function! ShowPopup()
                  execute 'lcd '.s:ObsidianICloudPath      
                  pwd
               endif
+           elseif a:result == 3
+              call WordCountBetweenHeadings()
            else
               " Do nothin'
            endif
         endfunc
 
         let s:CdObsidianOption = s:ObsidianFound ? "Change dir to Obsidian" : "Obsidian iCloud not found." 
-        call popup_menu(['Open vimrc', s:CdObsidianOption, 'Cancel'], #{
+        call popup_menu(['Open vimrc', s:CdObsidianOption, 'Count words', 'Cancel'], #{
            \ callback: 'MenuSelected',
            \ title: 'Menu' 
            \ })
 endfunc
 nnoremap <leader>m :call ShowPopup()<CR>
+
+function! WordCountBetweenHeadings()
+    " Save the cursor position
+    let orig_pos = getpos(".")
+
+    " Move to the first level 1 heading (backward search)
+    silent! execute "normal! ?^# \<CR>"
+
+    " Enter Visual Line Mode
+    silent! execute "normal! V\<CR>"
+
+    " Move to the second level 1 heading (forward search)
+    silent! execute "normal! /^# \<CR>"
+
+    " If no second level 1 heading found, set the end to the end of the file
+    if getpos(".")[1] == 1
+        normal! G
+    endif
+
+    " Perform word count using g Ctrl-G and capture the result
+    redir => word_count_output
+    silent execute "normal! g\<C-G>"
+    redir END
+
+    " Display the result
+    echo word_count_output
+
+    " Go back to normal mode
+    silent execute "normal! V"
+
+    " Restore the cursor position
+    call setpos(".", orig_pos)
+endfunction
+
+" Map the function to a key, e.g., <Leader>w
+nnoremap <Leader>w :call WordCountBetweenHeadings()<CR>
