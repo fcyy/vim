@@ -1,3 +1,13 @@
+" Install plugins using the vim-plug plugin manager
+" run :PlugInstall to install
+" run :PlugStatus to view status
+call plug#begin('~/.vim/plugged')
+
+Plug 'preservim/vim-markdown'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
 " Enable syntax highlighting
 syntax on
 
@@ -26,8 +36,9 @@ set expandtab
 set tabstop=3
 
 " Set appearance (for vim GUIs)
-colorscheme desert
-set guifont=Monaco:h14
+colorscheme gruvbox
+set background=dark
+set guifont=Menlo:h14
 
 set conceallevel=2
 let g:markdown_conceal = 1
