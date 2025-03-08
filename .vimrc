@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/vim-markdown'
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/goyo.vim' 
 
 call plug#end()
 
@@ -39,7 +40,15 @@ set tabstop=3
 colorscheme gruvbox
 set background=dark
 set guifont=Menlo:h14
+set linespace=10
 
+" Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
+set display+=lastline
+
+" Stop vim from trying to scroll prematurely
+" in an attempt to leave N lines visible when
+" cursor near top or bottom edge.
+set scrolloff=0
 set conceallevel=2
 let g:markdown_conceal = 1
 let g:vim_markdown_conceal_code_blocks = 1
