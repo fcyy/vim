@@ -44,7 +44,7 @@ if has('osx')
    set guifont=Source\ Code\ Pro:h16 " Install as needed with brew install --cask font-source-code-pro
    set linespace=10
 elseif has('ivim')
-       set guifont=Source\ Code\ Pro:h14 
+       set guifont=Source\ Code\ Pro:h18:b:i 
 endif
 
 " Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
