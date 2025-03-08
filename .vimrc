@@ -40,8 +40,12 @@ set tabstop=3
 colorscheme gruvbox
 set background=dark
 " Source Code Pro is available on iOS (iVim), macOS. Should (?) also be available on Windows and Linux.
-set guifont=Source\ Code\ Pro:h14 " Install as needed with brew install --cask font-source-code-pro
-set linespace=10
+if has('osx')
+   set guifont=Source\ Code\ Pro:h16 " Install as needed with brew install --cask font-source-code-pro
+   set linespace=10
+elseif has('ivim')
+       set guifont=Source\ Code\ Pro:h14 
+endif
 
 " Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
 set display+=lastline
