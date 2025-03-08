@@ -39,11 +39,9 @@ set tabstop=3
 " Set appearance (for vim GUIs)
 colorscheme gruvbox
 set background=dark
-if has('osx') 
-   " set guifont=Menlo:h14
-   set guifont=Fira\ Code:h14 " Install as needed with brew install font-fira-code on Mac. Other OS's: https://github.com/tonsky/FiraCode/wiki/Installing
-   set linespace=10
-endif
+" Source Code Pro is available on iOS (iVim), macOS. Should (?) also be available on Windows and Linux.
+set guifont=Source\ Code\ Pro:h14 " Install as needed with brew install --cask font-source-code-pro
+set linespace=10
 
 " Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
 set display+=lastline
