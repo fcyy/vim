@@ -45,6 +45,8 @@ if has('osx')
    set linespace=5
 elseif has('ivim')
        set guifont=Source\ Code\ Pro:h18:b:i 
+elseif has('windows')
+       set guifont=Source\ Code\ Pro:h12
 endif
 
 " Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
