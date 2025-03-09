@@ -42,7 +42,7 @@ set background=dark
 " Source Code Pro is available on iOS (iVim), macOS. Should (?) also be available on Windows and Linux.
 if has('osx')
    set guifont=Source\ Code\ Pro:h16 " Install as needed with brew install --cask font-source-code-pro
-   set linespace=10
+   set linespace=5
 elseif has('ivim')
        set guifont=Source\ Code\ Pro:h18:b:i 
 endif
