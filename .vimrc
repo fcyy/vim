@@ -12,8 +12,9 @@ call plug#end()
 " Enable syntax highlighting
 syntax on
 
-" Set line numbers
+" Set line numbers and relative numbers
 set number
+set relativenumber
 
 " Map Esc
 inoremap jj <Esc>
@@ -46,9 +47,9 @@ if has('osx')
    set guifont=Source\ Code\ Pro:h16 " Install as needed with brew install --cask font-source-code-pro
    set linespace=5
 elseif has('ivim')
-       set guifont=Source\ Code\ Pro:h18:b:i 
+   set guifont=Source\ Code\ Pro:h18:b:i 
 elseif has('windows')
-       set guifont=Source\ Code\ Pro:h12
+   set guifont=Source\ Code\ Pro:h12
 endif
 
 " Stop vim from changing long lines to @. Adds instead @@@@ to bottom right
@@ -97,7 +98,7 @@ function! ShowPopup()
         endfunc
 
         let s:CdObsidianOption = s:ObsidianFound ? "Change dir to Obsidian" : "Obsidian iCloud not found." 
-        call popup_menu(['Open vimrc', s:CdObsidianOption, 'Count words', 'Cancel'], #{
+        call popup_menu(['Open vimrc', s:CdObsidianOption, 'Count markdown H1 words', 'Cancel'], #{
            \ callback: 'MenuSelected',
            \ title: 'Menu' 
            \ })
@@ -115,7 +116,9 @@ function! WordCountBetweenHeadings()
     silent! execute "normal! V\<CR>"
 
     " Move to the second level 1 heading (forward search)
-    silent! execute "normal! /^# \<CR>"
+    " and offset the cursor by one line, to exclude the 
+    " 2nd heading.
+    silent! execute "normal! /^# /-1\<CR>"
 
     " If no second level 1 heading found, set the end to the end of the file
     if getpos(".")[1] == 1
