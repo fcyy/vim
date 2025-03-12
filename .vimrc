@@ -27,6 +27,8 @@ nnoremap k gk
 " Wrap at word boundaries. Vim wraps lines by default.
 set wrap
 set linebreak
+set breakindent               " Indent wrapped lines by the same amount as the first line, but...
+set breakindentopt=shift:4    " ... add a further (shift:N) spaces to create a hanging indent.
 
 " Search options
 set ignorecase
