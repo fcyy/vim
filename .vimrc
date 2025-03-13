@@ -82,23 +82,35 @@ function! ShowPopup()
            endif
         endif
 
-        func! MenuSelected(id, result)
-           if a:result == 1
+        " Build menu 
+        let MenuOptions = []
+        let s:OpenVimrcOption = 'Open vimrc'
+        let s:CdObsidianOption = s:ObsidianFound ? "Change dir to Obsidian" : "Obsidian iCloud not found." 
+        let s:CountMdH1WordsOption = 'Count markdown H1 words'
+        let s:CancelOption = 'Cancel'
+        call add(MenuOptions, s:OpenVimrcOption)
+        call add(MenuOptions, s:CdObsidianOption)
+        if &filetype == 'markdown'
+           call add(MenuOptions, s:CountMdH1WordsOption)
+        endif
+        call add(MenuOptions, s:CancelOption)
+
+        func! MenuSelected(id, result) closure
+           if MenuOptions[a:result-1] == s:OpenVimrcOption
               :split $MYVIMRC
-           elseif a:result == 2
+           elseif MenuOptions[a:result-1] == s:CdObsidianOption 
               if s:ObsidianFound
                  execute 'lcd '.s:ObsidianICloudPath      
                  pwd
               endif
-           elseif a:result == 3
+           elseif MenuOptions[a:result-1] == s:CountMdH1WordsOption 
               call WordCountBetweenHeadings()
            else
               " Do nothin'
            endif
         endfunc
 
-        let s:CdObsidianOption = s:ObsidianFound ? "Change dir to Obsidian" : "Obsidian iCloud not found." 
-        call popup_menu(['Open vimrc', s:CdObsidianOption, 'Count markdown H1 words', 'Cancel'], #{
+        call popup_menu(MenuOptions, #{
            \ callback: 'MenuSelected',
            \ title: 'Menu' 
            \ })
